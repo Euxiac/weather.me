@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Perth",
+    "local_names": {
+      "is": "Perth",
+      "lt": "Pertas",
+      "pt": "Perth",
+      "de": "Perth",
+      "sr": "Перт",
+      "pl": "Perth",
+      "sv": "Perth",
+      "ar": "بيرث",
+      "eo": "Perto",
+      "es": "Perth",
+      "mk": "Перт",
+      "zh": "珀斯",
+      "fr": "Perth",
+      "kn": "ಪರ್ತ್",
+      "ru": "Перт",
+      "he": "פרת",
+      "uk": "Перт",
+      "en": "Perth",
+      "hi": "पर्थ",
+      "oc": "Perth",
+      "mr": "पर्थ",
+      "ja": "パース",
+      "ko": "퍼스"
+    },
+    "lat": -31.9558933,
+    "lon": 115.8605855,
+    "country": "AU",
+    "state": "Western Australia"
+  },
+  {
+    "name": "Perth",
+    "local_names": {
+      "sr": "Перт",
+      "ru": "Перт",
+      "de": "Perth",
+      "en": "Perth",
+      "hu": "Perth",
+      "ko": "퍼스",
+      "mk": "Перт",
+      "ur": "پرتھ",
+      "ga": "Peairt",
+      "lt": "Pertas",
+      "gd": "Peairt",
+      "uk": "Перт"
+    },
+    "lat": 56.3958186,
+    "lon": -3.4286805,
+    "country": "GB",
+    "state": "Scotland"
+  },
+  {
+    "name": "Perth",
+    "lat": 44.8992423,
+    "lon": -76.2487294,
+    "country": "CA",
+    "state": "Ontario"
+  },
+  {
+    "name": "Perth",
+    "lat": 44.9027021,
+    "lon": -76.24605789087717,
+    "country": "CA",
+    "state": "Ontario"
+  },
+  {
+    "name": "Perth",
+    "local_names": { "en": "Perth", "zh": "珀斯" },
+    "lat": 48.7163932,
+    "lon": -99.4579209,
+    "country": "US",
+    "state": "North Dakota"
+  }
+]
