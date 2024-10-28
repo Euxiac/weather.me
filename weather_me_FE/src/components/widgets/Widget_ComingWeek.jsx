@@ -66,8 +66,10 @@ function Widget_ComingWeek() {
     }
   }
 
-  const fetch = () => {
-    axios
+  useEffect(() => {
+    console.log("effect run on Coming Week");
+    const fetch = () => {
+      axios
       .get(
         `https://api.openweathermap.org/data/3.0/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&lang=en&appid=${key}&exclude=minutely,hourly,current,alerts`
       )
@@ -86,18 +88,16 @@ function Widget_ComingWeek() {
       .catch((err) => {
         console.log(err);
       });
-  };
+    };
+    fetch();
+  }, []);
+
 
   return (
     <Card elevation={2} sx={{ minWidth: 275 }}>
       <CardContent sx={{ overflow: "auto" }}>
         {populateComingWeekStack()}
       </CardContent>
-      <CardActions>
-        <Button variant="contained" onClick={fetch}>
-          Fetch
-        </Button>
-      </CardActions>
     </Card>
   );
 }
