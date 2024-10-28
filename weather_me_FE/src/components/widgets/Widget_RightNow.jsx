@@ -13,6 +13,9 @@ function Widget_RightNow() {
     lat: -31.9558933,
     lon: 115.8605855,
   });
+
+  const key = '';
+
   const [currentWeather, setCurrentWeather] = useState({
     weather: "",
     desc: "",
@@ -25,7 +28,7 @@ function Widget_RightNow() {
 
   const fetch = () => {
     axios
-      .get(`https://api.openweathermap.org/data/3.0/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&lang=en&appid=828619469cc259300802f375e9106b7b&exclude=minutely,hourly,daily,alerts`)
+      .get(`https://api.openweathermap.org/data/3.0/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&lang=en&appid=${key}&exclude=minutely,hourly,daily,alerts`)
       .then((res) => {
         console.log("\/ API call from Right Now Widget");
         console.log(res);

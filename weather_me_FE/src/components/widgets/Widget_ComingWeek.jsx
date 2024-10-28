@@ -32,6 +32,8 @@ function Widget_ComingWeek() {
     lon: 115.8605855,
   });
 
+  const key = '';
+
   const [dataAvailable, setDataAvailable] = useState(false);
   const [weatherArray, setWeatherArray] = useState("");
     const weatherDataArray = [];
@@ -67,7 +69,7 @@ function Widget_ComingWeek() {
   const fetch = () => {
     axios
       .get(
-        `https://api.openweathermap.org/data/3.0/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&lang=en&appid=828619469cc259300802f375e9106b7b&exclude=minutely,hourly,current,alerts`
+        `https://api.openweathermap.org/data/3.0/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&lang=en&appid=${key}&exclude=minutely,hourly,current,alerts`
       )
       .then((res) => {
         console.log("/ API call from Coming Week Widget");
