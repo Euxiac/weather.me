@@ -8,3 +8,5 @@ geocoding
 http://api.openweathermap.org/geo/1.0/direct?q=Perth,036&limit=5&appid=828619469cc259300802f375e9106b7b
 
 https://api.openweathermap.org/data/3.0/onecall?lat=-31.9558933&lon=115.8605855&units=metric&lang=en&appid=828619469cc259300802f375e9106b7b
+
+
