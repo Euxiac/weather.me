@@ -25,7 +25,7 @@ function Widget_Duck() {
   };
 
   return (
-    <Card elevation={2} sx={{ minWidth: 275 }}>
+    <>
       <CardActions>
         <IconButton aria-label="JokeMe" size="large" onClick={getJoke}>
           <DuckIcon/>
@@ -46,7 +46,7 @@ function Widget_Duck() {
           </Typography>
         )}
       </CardContent>
-    </Card>
+      </>
   );
 }
 

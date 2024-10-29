@@ -3,10 +3,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
+import CardContent from "@mui/material/CardContent";
 
 function Widget_Location() {
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <CardContent sx={{ minWidth: 275 }}>
       <Stack
         id="stack_location"
         direction="row"
@@ -23,7 +24,7 @@ function Widget_Location() {
           Australia
         </Typography>
       </Stack>
-    </Box>
+    </CardContent>
   );
 }
 

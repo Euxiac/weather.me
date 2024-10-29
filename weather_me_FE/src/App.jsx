@@ -12,6 +12,7 @@ import Widget_Location from "./components/widgets/Widget_Location";
 import Widget_RightNow from "./components/widgets/Widget_RightNow";
 import Widget_Duck from "./components/widgets/Widget_Duck";
 import Widget_ComingWeek from "./components/widgets/Widget_ComingWeek";
+import Widget from "./components/basic/Widget";
 
 const WeatherMeApp = () => {
   return (
@@ -27,15 +28,14 @@ const WeatherMeApp = () => {
           >
 
             <Stack id="header_WidgetStack" direction="column" spacing={2}>
-              <Widget_Name />
-              <Widget_Location />
+            <Widget><Widget_Name /></Widget>
+            <Widget><Widget_Location /></Widget>
             </Stack>
 
             <Stack id="body_WidgetStack" direction="column" spacing={2}>
-              <Widget_RightNow/>
-              <Widget_ComingWeek/>
-              <Widget_Duck />
-              <BasicCard/>
+              <Widget><Widget_RightNow/></Widget>
+              <Widget><Widget_ComingWeek/></Widget>
+              <Widget><Widget_Duck /></Widget>
               <AddCard />
             </Stack>
             

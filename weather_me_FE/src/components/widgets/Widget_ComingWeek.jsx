@@ -144,12 +144,10 @@ function Widget_ComingWeek() {
 
 
   return (
-    <Card elevation={2} sx={{ minWidth: 275 }}>
       <CardContent sx={{ overflow: "auto" }}>
       {usingMockData ? <UsingMockData_warning/>: null}
         {populateComingWeekStack()}
       </CardContent>
-    </Card>
   );
 }
 

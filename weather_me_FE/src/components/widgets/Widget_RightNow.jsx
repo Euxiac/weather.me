@@ -62,7 +62,6 @@ function Widget_RightNow() {
   }, []);
 
   return (
-    <Card elevation={2} sx={{ minWidth: 275 }}>
       <CardContent>
         {usingMockData ? <UsingMockData_warning /> : null}
         {returnIcon(currentWeather ? currentWeather.icon : null)}
@@ -72,7 +71,6 @@ function Widget_RightNow() {
         <p>temperature: {currentTemperature.temperature}</p>
         <p>feels like: {currentTemperature.feels_like}</p>
       </CardContent>
-    </Card>
   );
 }
 
