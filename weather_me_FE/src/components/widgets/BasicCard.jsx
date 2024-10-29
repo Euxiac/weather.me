@@ -11,6 +11,8 @@ import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import BuildCircleIcon from "@mui/icons-material/BuildCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 
+//look at passing content using props
+// you can pass several props to thing but you will recieve them all in one prop package
 function BasicCard() {
   const [edit, setEdit] = useState(false);
 

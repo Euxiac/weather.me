@@ -1,23 +1,25 @@
 import * as React from "react";
 import { useState, useEffect  } from "react";
-import ReactDOM from "react-dom/client";
-import axios from "axios";
 
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import Skeleton from '@mui/material/Skeleton';
+
+import { fetch8DaysWeather, fetchCurrentTime } from "../../services/apiService";
+import mock_weather from "./mock_data/mock_weather.json";
+import mock_time from "./mock_data/mock_time.json";
+import { UsingMockData_warning } from "./widget_components/Card_Alerts";
+import returnIcon from "../../Utilities/returnIcon";
 
 function Widget_ComingWeek() {
-  const weatherEntry = (day, data) => {
+  const weatherEntry = (day, data, ukey) => {
     return (
-      <Box>
+      <Box key={ukey}>
         <h3>{day}</h3>
+        {returnIcon(data ? data.weather[0].icon : null)}
         <p>weather icon: {data ? data.weather[0].icon : "n/a"}</p>
         <p>weather: {data ? data.weather[0].main : "n/a"}</p>
         <p>weather description: {data ? data.summary : "n/a"}</p>
@@ -27,16 +29,46 @@ function Widget_ComingWeek() {
     );
   };
 
-  const [location, setLocation] = useState({
-    lat: -31.9558933,
-    lon: 115.8605855,
-  });
-
-  const key = '';
-
   const [dataAvailable, setDataAvailable] = useState(false);
   const [weatherArray, setWeatherArray] = useState("");
-    const weatherDataArray = [];
+  const [timeAndDate, setTimeAndDate] = useState("");
+  const daysOfWeek = [{0:"Sun", 1:"Mon", 2:"Tue", 3:"Wed", 4:"Thu", 5:"Fri", 6:"Sat"}];
+  const [usingMockData, setUsingMockData] = useState(false);
+
+  const CalculateDays = (today, daysFromToday) =>{
+    let result;
+    switch (today) {
+      case "Sunday": 
+      result = 0 + daysFromToday 
+      break;
+      case "Monday": 
+      result = 1 + daysFromToday;
+      break;
+      case "Tuesday": 
+      result = 2 + daysFromToday;
+      break;
+      case "Wednesday": 
+      result = 3 + daysFromToday;
+      break;
+      case "Thursday": 
+      result = 4 + daysFromToday;
+      break;
+      case "Friday": 
+      result = 5 + daysFromToday;
+      break;
+      case "Saturday": 
+      result = 6 + daysFromToday;
+      break;
+      default: break;
+    }
+
+    if (result > 6)
+    {
+      result = result - 6;
+    }
+
+    return result
+  }
 
   function populateComingWeekStack() {
     //console.log(`populate ${weatherArray[0]}`);
@@ -48,14 +80,16 @@ function Widget_ComingWeek() {
           direction="row"
           spacing={2}
         >
-          {weatherEntry("Today", weatherArray[0])}
-          {weatherEntry("Tommorow", weatherArray[1])}
-          {weatherEntry("Day", weatherArray[2])}
-          {weatherEntry("Day", weatherArray[3])}
-          {weatherEntry("Day", weatherArray[4])}
-          {weatherEntry("Day", weatherArray[5])}
-          {weatherEntry("Day", weatherArray[6])}
-          {weatherEntry("Day", weatherArray[7])}
+          {weatherEntry("Today", weatherArray[0], 0)}
+          {weatherEntry("Tommorow", weatherArray[1], 1)}
+          {
+            weatherArray.map((daily, index) => {
+              if(index === 0 || index === 1) return null;
+              let day = CalculateDays(timeAndDate.day_of_week, index);
+              let dayName = daysOfWeek[0][day];
+              return weatherEntry(dayName, daily, index);
+            })
+          }
         </Stack>
       );
     }
@@ -67,35 +101,52 @@ function Widget_ComingWeek() {
   }
 
   useEffect(() => {
-    console.log("effect run on Coming Week");
-    const fetch = () => {
-      axios
-      .get(
-        `https://api.openweathermap.org/data/3.0/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&lang=en&appid=${key}&exclude=minutely,hourly,current,alerts`
-      )
+    //console.log("effect run on Coming Week");
+    fetch8DaysWeather()
       .then((res) => {
-        console.log("/ API call from Coming Week Widget");
-        console.log(res);
+        //console.log("/ API call from Coming Week Widget for weather");
+        //console.log(res);
         const dataArray = res.data.daily;
+        setUsingMockData(false);
         let tempArr = []
         for (let index = 0; index < dataArray.length; index++) {
           //console.log(dataArray[index]);
           tempArr.push(dataArray[index]);
         }
         setWeatherArray(tempArr);
+        //setDataAvailable(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        const dataArray = mock_weather.daily;
+        setUsingMockData(true);
+        let tempArr = []
+        for (let index = 0; index < dataArray.length; index++) {
+          //console.log(dataArray[index]);
+          tempArr.push(dataArray[index]);
+        }
+        setWeatherArray(tempArr);
+      });
+
+      fetchCurrentTime()
+      .then((res) => {
+        //console.log("/ API call from Coming Week Widget for Time");
+        //console.log(res);
+        setTimeAndDate(res.data);
         setDataAvailable(true);
       })
       .catch((err) => {
         console.log(err);
+        setTimeAndDate(mock_time);
+        setDataAvailable(true);
       });
-    };
-    fetch();
   }, []);
 
 
   return (
     <Card elevation={2} sx={{ minWidth: 275 }}>
       <CardContent sx={{ overflow: "auto" }}>
+      {usingMockData ? <UsingMockData_warning/>: null}
         {populateComingWeekStack()}
       </CardContent>
     </Card>

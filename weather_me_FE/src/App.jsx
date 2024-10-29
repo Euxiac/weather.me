@@ -1,21 +1,14 @@
 import * as React from "react";
-import { useState } from "react";
-import axios from "axios";
-import LocationSearch from "./components/LocationSearch";
-import Widget from "./components/Widget";
-import BasicCard from "./components/BasicCard";
 
 import { Container } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import NavigationBar from "./components/NavigationBar";
-import Paper from "@mui/material/Paper";
-import AddCard from "./components/AddCard";
+import NavigationBar from "./components/basic/NavigationBar";
+import AddCard from "./components/widgets/AddCard";
+import BasicCard from "./components/widgets/BasicCard";
 import Widget_Name from "./components/widgets/Widget_Name"
 import Widget_Location from "./components/widgets/Widget_Location";
-import Widget_Test from "./components/widgets/Widget_Test";
 import Widget_RightNow from "./components/widgets/Widget_RightNow";
 import Widget_Duck from "./components/widgets/Widget_Duck";
 import Widget_ComingWeek from "./components/widgets/Widget_ComingWeek";
@@ -42,6 +35,7 @@ const WeatherMeApp = () => {
               <Widget_RightNow/>
               <Widget_ComingWeek/>
               <Widget_Duck />
+              <BasicCard/>
               <AddCard />
             </Stack>
             

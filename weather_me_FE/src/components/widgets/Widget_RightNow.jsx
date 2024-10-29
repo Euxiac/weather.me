@@ -1,25 +1,22 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import Alert from "@mui/material/Alert";
+
+import { fetchCurrentWeather } from "../../services/apiService";
+import mock_weather from "./mock_data/mock_weather.json";
+import { UsingMockData_warning } from "./widget_components/Card_Alerts";
+import returnIcon from "../../Utilities/returnIcon";
 
 function Widget_RightNow() {
-  const [location, setLocation] = useState({
-    lat: -31.9558933,
-    lon: 115.8605855,
-  });
-
-  const key = '';
-
+  const [usingMockData, setUsingMockData] = useState(false);
   const [currentWeather, setCurrentWeather] = useState({
     weather: "",
     desc: "",
-    icon:"",
+    icon: "",
   });
   const [currentTemperature, setCurrentTemperature] = useState({
     temperature: "",
@@ -27,31 +24,48 @@ function Widget_RightNow() {
   });
 
   useEffect(() => {
-    console.log("effect run on Right Now");
-    const fetch = () => {
-      axios
-        .get(`https://api.openweathermap.org/data/3.0/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&lang=en&appid=${key}&exclude=minutely,hourly,daily,alerts`)
-        .then((res) => {
-          console.log("\/ API call from Right Now Widget");
-          console.log(res);
-          const currData = res.data.current;
-          const weatherData = currData.weather[0];
-          setCurrentWeather({weather: weatherData.main, desc: weatherData.description, icon: weatherData.icon});
-          setCurrentTemperature({temperature: currData.temp, feels_like: currData.feels_like,});
-        })
-        .catch((err) => {
-          console.log(err);
+    //console.log("effect run on Right Now");
+    fetchCurrentWeather()
+      //.fetchRightNow returns a promise that will be fulfilled at some point and then it runs .then. Promise success
+      .then((res) => {
+        //console.log(res);
+        const currData = res.data.current;
+        setUsingMockData(false);
+        const weatherData = currData.weather[0];
+        setCurrentWeather({
+          weather: weatherData.main,
+          desc: weatherData.description,
+          icon: weatherData.icon,
         });
-    };
-    fetch();
+        setCurrentTemperature({
+          temperature: currData.temp,
+          feels_like: currData.feels_like,
+        });
+      })
+      // you can also use .catch for in case your promise has errors. Promise fail
+      .catch((err) => {
+        console.log(err);
+        //on catch use mock data instead
+        const currData = mock_weather.current;
+        const weatherData = currData.weather[0];
+        setUsingMockData(true);
+        setCurrentWeather({
+          weather: weatherData.main,
+          desc: weatherData.description,
+          icon: weatherData.icon,
+        });
+        setCurrentTemperature({
+          temperature: currData.temp,
+          feels_like: currData.feels_like,
+        });
+      });
   }, []);
 
   return (
     <Card elevation={2} sx={{ minWidth: 275 }}>
       <CardContent>
-        <p>
-          lat={location.lat} lon={location.lon}
-        </p>
+        {usingMockData ? <UsingMockData_warning /> : null}
+        {returnIcon(currentWeather ? currentWeather.icon : null)}
         <p>weather icon: {currentWeather.icon}</p>
         <p>weather: {currentWeather.weather}</p>
         <p>weather description: {currentWeather.desc}</p>
