@@ -1,15 +1,16 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 
-import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
+import Box from "@mui/material/Box";
 
 import { fetchCurrentWeather } from "../../services/apiService";
 import mock_weather from "./mock_data/mock_weather.json";
 import { UsingMockData_warning } from "./widget_components/Card_Alerts";
 import returnIcon from "../../Utilities/returnIcon";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid2";
 
 function Widget_RightNow() {
   const [usingMockData, setUsingMockData] = useState(false);
@@ -62,15 +63,47 @@ function Widget_RightNow() {
   }, []);
 
   return (
-      <CardContent>
+    <CardContent>
+      <Box sx={{ pb: "24px", flexGrow: 1 }}>
         {usingMockData ? <UsingMockData_warning /> : null}
-        {returnIcon(currentWeather ? currentWeather.icon : null)}
-        <p>weather icon: {currentWeather.icon}</p>
-        <p>weather: {currentWeather.weather}</p>
-        <p>weather description: {currentWeather.desc}</p>
-        <p>temperature: {currentTemperature.temperature}</p>
-        <p>feels like: {currentTemperature.feels_like}</p>
-      </CardContent>
+      </Box>
+
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={0}>
+          <Grid size={5}>
+            <Stack
+              direction="column"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              spacing={0}
+            >
+              {returnIcon(currentWeather ? currentWeather.icon : null)}
+              <Typography variant="caption">{currentWeather.desc}</Typography>
+            </Stack>
+          </Grid>
+          <Grid size={7}>
+            <Stack
+              direction="column"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              spacing={1}
+            >
+              <Typography variant="subtitle2">
+                {currentWeather.weather}
+              </Typography>
+              <Typography variant="h2">
+                {Math.round(currentTemperature.temperature)}°C
+              </Typography>
+              <Typography variant="body1">
+                feels like {Math.round(currentTemperature.feels_like)}°C
+              </Typography>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Box>
+    </CardContent>
   );
 }
 

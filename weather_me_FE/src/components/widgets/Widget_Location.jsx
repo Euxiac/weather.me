@@ -3,28 +3,27 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
-import CardContent from "@mui/material/CardContent";
 
 function Widget_Location() {
   return (
-    <CardContent sx={{ minWidth: 275 }}>
+    <Box display="flex" justifyContent="center" alignItems="center">
       <Stack
         id="stack_location"
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
       >
-        <Typography variant="subtitle1">
+        <Typography variant="caption">
           Perth
         </Typography>
-        <Typography variant="subtitle1">
+        <Typography variant="caption">
           WA
         </Typography>
-        <Typography variant="subtitle1">
+        <Typography variant="caption">
           Australia
         </Typography>
       </Stack>
-    </CardContent>
+      </Box>
   );
 }
 
