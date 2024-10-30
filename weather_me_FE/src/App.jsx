@@ -3,15 +3,13 @@ import * as React from "react";
 import { Container } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import NavigationBar from "./components/basic/NavigationBar";
 import AddCard from "./components/widgets/AddCard";
-import Widget_Name from "./components/widgets/Widget_Name";
-import Widget_Location from "./components/widgets/Widget_Location";
 import Widget_RightNow from "./components/widgets/Widget_RightNow";
 import Widget_Duck from "./components/widgets/Widget_Duck";
 import Widget_ComingWeek from "./components/widgets/Widget_ComingWeek";
 import Widget from "./components/basic/Widget";
+import Widget_Header from "./components/widgets/Widget_Header"
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -50,10 +48,7 @@ const WeatherMeApp = () => {
               direction="column"
               spacing={6}
             >
-              <Stack id="header_WidgetStack" direction="column" spacing={2}>
-                <Widget_Name />
-                <Widget_Location />
-              </Stack>
+              <Widget_Header />
 
               <Stack id="body_WidgetStack" direction="column" spacing={3}>
                 <Widget>
