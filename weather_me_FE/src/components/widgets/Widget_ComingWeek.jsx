@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect  } from "react";
+import { useState, useEffect } from "react";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -17,58 +17,100 @@ import returnIcon from "../../Utilities/returnIcon";
 function Widget_ComingWeek() {
   const weatherEntry = (day, data, ukey) => {
     return (
-      <Box key={ukey}>
-        <h3>{day}</h3>
-        {returnIcon(data ? data.weather[0].icon : null)}
-        <p>weather icon: {data ? data.weather[0].icon : "n/a"}</p>
-        <p>weather: {data ? data.weather[0].main : "n/a"}</p>
-        <p>weather description: {data ? data.summary : "n/a"}</p>
-        <p>max temp: {data ? data.temp.max : "n/a"}</p>
-        <p>min temp: {data ? data.temp.min : "n/a"}</p>
-      </Box>
+      <Card key={ukey} sx={{ minWidth: 160}}>
+        <Box
+          direction="column"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ backgroundColor: "grey", pt: 0.5, pb: 0.5 }}
+        >
+          <Typography variant="caption">{day}</Typography>
+        </Box>
+        <CardContent sx={{ pt: 0}}>
+          <Stack spacing={2}>
+            <Box>
+              <Stack spacing={2}>
+                <Stack
+                  direction="column"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  textAlign="center"
+                  spacing={0.5}
+                >
+                  {returnIcon(data ? data.weather[0].icon : null)}
+                  <Typography variant="subtitle2">
+                    {data ? data.weather[0].main : "n/a"}
+                  </Typography>
+                  <Typography variant="caption">
+                    {data ? data.summary : "n/a"}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="column"
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={0.5}
+                >
+                  <Typography variant="subtitle2">
+                    Max {data ? data.temp.max : "n/a"}
+                  </Typography>
+                  <Typography variant="subtitle2">
+                    Min {data ? data.temp.min : "n/a"}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </Box>
+          </Stack>
+        </CardContent>
+      </Card>
     );
   };
 
   const [dataAvailable, setDataAvailable] = useState(false);
   const [weatherArray, setWeatherArray] = useState("");
   const [timeAndDate, setTimeAndDate] = useState("");
-  const daysOfWeek = [{0:"Sun", 1:"Mon", 2:"Tue", 3:"Wed", 4:"Thu", 5:"Fri", 6:"Sat"}];
+  const daysOfWeek = [
+    { 0: "Sun", 1: "Mon", 2: "Tue", 3: "Wed", 4: "Thu", 5: "Fri", 6: "Sat" },
+  ];
   const [usingMockData, setUsingMockData] = useState(false);
 
-  const CalculateDays = (today, daysFromToday) =>{
+  const CalculateDays = (today, daysFromToday) => {
     let result;
     switch (today) {
-      case "Sunday": 
-      result = 0 + daysFromToday 
-      break;
-      case "Monday": 
-      result = 1 + daysFromToday;
-      break;
-      case "Tuesday": 
-      result = 2 + daysFromToday;
-      break;
-      case "Wednesday": 
-      result = 3 + daysFromToday;
-      break;
-      case "Thursday": 
-      result = 4 + daysFromToday;
-      break;
-      case "Friday": 
-      result = 5 + daysFromToday;
-      break;
-      case "Saturday": 
-      result = 6 + daysFromToday;
-      break;
-      default: break;
+      case "Sunday":
+        result = 0 + daysFromToday;
+        break;
+      case "Monday":
+        result = 1 + daysFromToday;
+        break;
+      case "Tuesday":
+        result = 2 + daysFromToday;
+        break;
+      case "Wednesday":
+        result = 3 + daysFromToday;
+        break;
+      case "Thursday":
+        result = 4 + daysFromToday;
+        break;
+      case "Friday":
+        result = 5 + daysFromToday;
+        break;
+      case "Saturday":
+        result = 6 + daysFromToday;
+        break;
+      default:
+        break;
     }
 
-    if (result > 6)
-    {
+    if (result > 6) {
       result = result - 6;
     }
 
-    return result
-  }
+    return result;
+  };
 
   function populateComingWeekStack() {
     //console.log(`populate ${weatherArray[0]}`);
@@ -76,27 +118,22 @@ function Widget_ComingWeek() {
       return (
         <Stack
           id="Stack_ComingWeek"
-          divider={<Divider orientation="vertical" flexItem />}
           direction="row"
           spacing={2}
+          sx={{ overflow: "auto" }}
         >
           {weatherEntry("Today", weatherArray[0], 0)}
           {weatherEntry("Tommorow", weatherArray[1], 1)}
-          {
-            weatherArray.map((daily, index) => {
-              if(index === 0 || index === 1) return null;
-              let day = CalculateDays(timeAndDate.day_of_week, index);
-              let dayName = daysOfWeek[0][day];
-              return weatherEntry(dayName, daily, index);
-            })
-          }
+          {weatherArray.map((daily, index) => {
+            if (index === 0 || index === 1) return null;
+            let day = CalculateDays(timeAndDate.day_of_week, index);
+            let dayName = daysOfWeek[0][day];
+            return weatherEntry(dayName, daily, index);
+          })}
         </Stack>
       );
-    }
-    else {
-        return (
-        <p>loading...</p>
-        );
+    } else {
+      return <p>loading...</p>;
     }
   }
 
@@ -108,7 +145,7 @@ function Widget_ComingWeek() {
         //console.log(res);
         const dataArray = res.data.daily;
         setUsingMockData(false);
-        let tempArr = []
+        let tempArr = [];
         for (let index = 0; index < dataArray.length; index++) {
           //console.log(dataArray[index]);
           tempArr.push(dataArray[index]);
@@ -120,7 +157,7 @@ function Widget_ComingWeek() {
         console.log(err);
         const dataArray = mock_weather.daily;
         setUsingMockData(true);
-        let tempArr = []
+        let tempArr = [];
         for (let index = 0; index < dataArray.length; index++) {
           //console.log(dataArray[index]);
           tempArr.push(dataArray[index]);
@@ -128,7 +165,7 @@ function Widget_ComingWeek() {
         setWeatherArray(tempArr);
       });
 
-      fetchCurrentTime()
+    fetchCurrentTime()
       .then((res) => {
         //console.log("/ API call from Coming Week Widget for Time");
         //console.log(res);
@@ -142,12 +179,13 @@ function Widget_ComingWeek() {
       });
   }, []);
 
-
   return (
-      <CardContent sx={{ overflow: "auto" }}>
-      {usingMockData ? <UsingMockData_warning/>: null}
-        {populateComingWeekStack()}
-      </CardContent>
+    <>
+      <Box sx={{flexGrow: 1 }}>
+        {usingMockData ? <UsingMockData_warning /> : null}
+      </Box>
+      {populateComingWeekStack()}
+    </>
   );
 }
 

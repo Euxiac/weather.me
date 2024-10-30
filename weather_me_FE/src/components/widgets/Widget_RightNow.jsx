@@ -69,7 +69,7 @@ function Widget_RightNow() {
       </Box>
 
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={0}>
+        <Grid container spacing={1}>
           <Grid size={5}>
             <Stack
               direction="column"

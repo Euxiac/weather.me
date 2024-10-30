@@ -48,21 +48,18 @@ const WeatherMeApp = () => {
             <Stack
               id="stackOfStacks"
               direction="column"
-              divider={<Divider orientation="horizontal" flexItem />}
-              spacing={5}
+              spacing={6}
             >
               <Stack id="header_WidgetStack" direction="column" spacing={2}>
                 <Widget_Name />
                 <Widget_Location />
               </Stack>
 
-              <Stack id="body_WidgetStack" direction="column" spacing={2}>
+              <Stack id="body_WidgetStack" direction="column" spacing={4}>
                 <Widget>
                   <Widget_RightNow />
                 </Widget>
-                <Widget>
                   <Widget_ComingWeek />
-                </Widget>
                 <Widget>
                   <Widget_Duck />
                 </Widget>
