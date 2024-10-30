@@ -7,9 +7,10 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import PetsIcon from "@mui/icons-material/Pets";
 import IconButton from "@mui/material/IconButton";
 import DuckIcon from "../icons/DuckIcon";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 
 function Widget_Duck() {
   const [jokeText, setJokeText] = useState({ setup: "", punchline: "" });
@@ -27,26 +28,38 @@ function Widget_Duck() {
   return (
     <>
       <CardActions>
-        <IconButton aria-label="JokeMe" size="large" onClick={getJoke}>
-          <DuckIcon/>
-        </IconButton>
+        <Box display="flex"
+          justifyContent="center"
+          alignItems="center" sx={{ flexGrow: 1 }}>
+          <IconButton aria-label="JokeMe" size="large" onClick={getJoke}>
+            <DuckIcon />
+          </IconButton>
+        </Box>
       </CardActions>
-      <CardContent>
-        {jokeText.setup || jokeText.punchline ? (
-          <>
-            <Typography variant="caption">The Duck quacks at you:</Typography>
-            <Typography variant="h5">"{jokeText.setup}"</Typography>
-            <Typography variant="body1">
-              {jokeText.punchline} *quack*
+      <CardContent sx={{ pt:0 }}>
+        <Stack
+          direction="column"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
+          spacing={1}
+        >
+          {jokeText.setup || jokeText.punchline ? (
+            <>
+              <Typography variant="h6">"{jokeText.setup}"</Typography>
+              <Typography variant="body1">
+                {jokeText.punchline} *quack*
+              </Typography>
+            </>
+          ) : (
+            <Typography variant="caption">
+              I wonder what this duck does...
             </Typography>
-          </>
-        ) : (
-          <Typography variant="caption">
-            I wonder what this duck does...
-          </Typography>
-        )}
+          )}
+        </Stack>
       </CardContent>
-      </>
+    </>
   );
 }
 
