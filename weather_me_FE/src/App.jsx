@@ -55,11 +55,13 @@ const WeatherMeApp = () => {
                 <Widget_Location />
               </Stack>
 
-              <Stack id="body_WidgetStack" direction="column" spacing={4}>
+              <Stack id="body_WidgetStack" direction="column" spacing={3}>
                 <Widget>
                   <Widget_RightNow />
                 </Widget>
+
                   <Widget_ComingWeek />
+                  
                 <Widget>
                   <Widget_Duck />
                 </Widget>

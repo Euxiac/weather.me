@@ -64,13 +64,17 @@ function Widget_RightNow() {
 
   return (
     <CardContent>
-      <Box sx={{ pb: "24px", flexGrow: 1 }}>
-        {usingMockData ? <UsingMockData_warning /> : null}
-      </Box>
+      {usingMockData ? <UsingMockData_warning /> : null}
 
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid size={5}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        sx={{ flexGrow: 1, pt: 1.5 }}
+      >
+        <Grid container spacing={3}>
+          <Grid size={4.5}>
             <Stack
               direction="column"
               display="flex"
@@ -82,15 +86,15 @@ function Widget_RightNow() {
               <Typography variant="caption">{currentWeather.desc}</Typography>
             </Stack>
           </Grid>
-          <Grid size={7}>
+          <Grid size={7.5}>
             <Stack
               direction="column"
               display="flex"
               justifyContent="center"
               alignItems="center"
-              spacing={1}
+              spacing={0}
             >
-              <Typography variant="subtitle2">
+              <Typography variant="overline">
                 {currentWeather.weather}
               </Typography>
               <Typography variant="h2">
