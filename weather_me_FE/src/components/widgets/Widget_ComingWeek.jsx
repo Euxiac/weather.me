@@ -6,7 +6,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 
 import { fetch8DaysWeather, fetchCurrentTime } from "../../services/apiService";
 import mock_weather from "./mock_data/mock_weather.json";
